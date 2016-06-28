@@ -2,6 +2,9 @@ from luzi82.v11bot import twitter_util,common,twitter
 import time, json, os.path, math
 from jinja2 import Environment, FileSystemLoader
 
+def stamp(t64):
+    return math.floor( ( t64 + (9*60*60) ) / (6*60*60) )
+
 def main(oauth,screen_name,start_time,end_time,report_filename):
     #start64 = math.floor(start_time.timestamp())
     end64 = math.floor(end_time.timestamp())
@@ -9,10 +12,16 @@ def main(oauth,screen_name,start_time,end_time,report_filename):
     now64 = math.floor(time.time())
     data = read_data()
 
+    if data['expire']:
+        return
+
     report = twitter_util.get_retweet_report(oauth, screen_name, start_time)
     report['now_str'] = common.to_datetime(now64)
+    report['now_str_short'] = common.to_datetime_short(now64)
     report_to_file(report,report_filename)
-    report_to_tweet(oauth,report)
+    if stamp(now64) != stamp(data['last_run']):
+        report_to_tweet(oauth,report)
+#    report_to_tweet(oauth,report)
 
     data['retweet_count'] = report['retweet_count']
     data['last_run'] = now64
