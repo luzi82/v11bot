@@ -64,4 +64,4 @@ if __name__ == '__main__':
     start_time = iso8601.parse_date(start_time)
     end_time = '2016-07-07T23:59:00+09:00'
     end_time = iso8601.parse_date(end_time)
-    main(_conf.auth, 'Venus11Vivid', start_time, end_time, '/tmp/tmp.html')
+    main(_conf.auth, 'Venus11Vivid', start_time, end_time, _conf.report_filename)
