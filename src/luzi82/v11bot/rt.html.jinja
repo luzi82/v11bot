@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>びびび RT counter</title>
+<style>
+.del{text-decoration: line-through;}
+</style>
+</head>
+<body>
+<p>Last update: {{ now_str }}</p>
+<h1 style="font-size:100pt;text-align:center;">{{ retweet_count }}</h1>
+<p><a href="https://twitter.com/Venus11Vivid">@Venus11Vivid</a>
+<table border='1' width="100%">
+<tr>
+	<th>ID</th>
+	<th>Time</th>
+	<th>RT</th>
+</tr>
+{% for tweet in tweet_list %}
+{% if tweet.is_accept %}
+<tr>
+	<td><a href="https://twitter.com/Venus11Vivid/status/{{ tweet.id }}">{{ tweet.id }}</a></td>
+	<td>{{ tweet.created_at_str }}</td>
+	<td>{{ tweet.retweet_count }}</td>
+</tr>
+{% endif %}
+{% endfor %}
+</table>
+</body>
+</html>
