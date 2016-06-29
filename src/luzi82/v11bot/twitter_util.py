@@ -1,4 +1,4 @@
-from luzi82.v11bot import twitter
+from luzi82.v11bot import twitter, common
 import pytz
 import datetime, math, json
 
@@ -20,9 +20,7 @@ def get_retweet_report(oauth,screen_name,start_time):
                 good = False
                 continue
             
-            time_str = datetime.datetime.fromtimestamp(time64)
-            time_str = pytz.timezone('Asia/Tokyo').localize(time_str)
-            time_str = time_str.isoformat()
+            time_str = common.to_datetime(time64)
             
             retweet_count = tweet['retweet_count']
             is_retweet = ('retweeted_status' in tweet)
